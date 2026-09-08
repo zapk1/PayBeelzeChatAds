@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeelzeAds — Pay for Advertising & Grow Your Business</title>
+<link rel="icon" href__="https://i.postimg.cc/mD0dbHM0/1000287857.png" type="image/png">
+<meta name="description" content="BeelzeAds — Run banner advertisements on BeelzeChat. Pay securely via PayFast. Reach millions of South African users.">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f6f7f9; color:#0f172a; padding-bottom:30px; }
+  :root { --red:#dc2626; --red-dark:#b91c1c; --red-light:#fef2f2; }
+  a { color:var(--red); }
+  .wrap { max-width:480px; margin:0 auto; }
+
+  /* === HEADER — smooth curved floating bar === */
+  .header { position:sticky; top:8px; z-index:50; background:#fff; border:1.5px solid var(--red);
+    border-radius:20px; display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; box-shadow:0 6px 20px rgba(220,38,38,0.12); margin:8px 10px 0; }
+  .brand { display:flex; align-items:center; gap:4px; cursor:pointer; }   /* logo closer to name */
+  .brand-logo { width:40px; height:40px; border-radius:10px; object-fit:cover; box-shadow:0 4px 12px rgba(220,38,38,0.25); }
+  .brand-name { font-weight:900; font-size:20px; color:var(--red); letter-spacing:-0.5px; user-select:none; }
+  .brand-crown { color:var(--red); width:22px; height:22px; }
+  .header-right { display:flex; align-items:center; gap:6px; }
+  .pf-tag { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:#22c55e; }
+  .admin-btn { background:#fff; border:1.5px solid var(--red); color:var(--red); border-radius:50%;
+    width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .admin-btn i { width:17px; height:17px; }
+
+  .hero { background:linear-gradient(135deg,#fff 0%,#fef2f2 100%); padding:24px 20px 20px; text-align:center; }
+  .hero-logo { width:96px; height:96px; border-radius:24px; object-fit:cover; margin:0 auto 16px; box-shadow:0 12px 32px rgba(220,38,38,0.3); border:4px solid #fff; display:block; }
+  .hero h1 { font-size:28px; font-weight:900; color:#0f172a; margin-bottom:8px; }
+  .hero h1 span { color:var(--red); }
+  .hero p { font-size:15px; color:#475569; line-height:1.6; max-width:380px; margin:0 auto 18px; }
+
+  /* hero stats as bullet points, not boxes */
+  .hero-bullets { list-style:none; display:flex; flex-direction:column; gap:8px; max-width:300px; margin:0 auto; }
+  .hero-bullets li { display:flex; align-items:center; gap:8px; justify-content:flex-start; font-size:14px; font-weight:700; color:#0f172a; }
+  .hero-bullets li i { color:var(--red); width:18px; height:18px; flex-shrink:0; }
+
+  .section { padding:22px 16px; }
+  .section-title { font-size:20px; font-weight:900; color:#0f172a; display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .section-title i { color:var(--red); }
+  .section-sub { font-size:13px; color:#64748b; margin-bottom:18px; }
+
+  /* === PLAN TOGGLE (white + red lucide icons) === */
+  .plan-toggle { display:flex; gap:8px; background:#fff; border:1.5px solid #e2e8f0; border-radius:14px; padding:5px; margin-bottom:16px; }
+  .pt-btn { flex:1; padding:11px; border:1.5px solid transparent; border-radius:11px; background:transparent;
+    font-weight:800; font-size:13px; color:#64748b; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .pt-btn i { width:16px; height:16px; }
+  .pt-btn.active { background:#fff; border-color:var(--red); color:var(--red); box-shadow:0 2px 8px rgba(220,38,38,0.12); }
+
+  /* === PLAN CARDS — little boxes with lucide icons + crown === */
+  .plan-cards { display:flex; flex-direction:column; gap:14px; margin-bottom:16px; }
+  .plan-card { background:#fff; border:1.5px solid #e2e8f0; border-radius:18px; padding:18px; box-shadow:0 4px 14px rgba(0,0,0,0.04); transition:all .2s; }
+    .plan-card { display:none; }
+  .plan-card.active { display:block; border-color:var(--red); box-shadow:0 6px 20px rgba(220,38,38,0.15); }
+  .plan-head { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .plan-head i { width:24px; height:24px; color:var(--red); }
+  .plan-name { font-weight:900; font-size:17px; color:#0f172a; }
+  .plan-price { font-size:32px; font-weight:900; color:var(--red); letter-spacing:-1px; }
+  .plan-per { font-size:13px; color:#64748b; font-weight:700; margin-bottom:12px; }
+  .plan-bullets { list-style:none; margin-bottom:14px; }
+  .plan-bullets li { display:flex; align-items:flex-start; gap:8px; font-size:13px; font-weight:600; color:#334155; padding:5px 0; border-bottom:1px solid #f1f5f9; }
+  .plan-bullets li:last-child { border-bottom:none; }
+  .plan-bullets li i { color:var(--red); width:16px; height:16px; flex-shrink:0; margin-top:1px; }
+
+  /* === BUTTONS — thin strokes, not big outside strokes === */
+  .btn { width:100%; padding:14px; border:1.5px solid transparent; border-radius:13px; font-size:15px;
+    font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:transform .15s; }
+  .btn:active { transform:scale(0.98); }
+  .btn i { width:19px; height:19px; }
+  .btn-red { background:linear-gradient(135deg,var(--red),var(--red-dark)); color:#fff; box-shadow:0 3px 10px rgba(220,38,38,0.2); }
+  .btn-donate { background:#0f172a; color:#fff; box-shadow:0 3px 10px rgba(15,23,42,0.2); }
+  .btn-white { background:#fff; color:var(--red); border:1.5px solid var(--red); box-shadow:0 2px 8px rgba(220,38,38,0.1); }
+  .btn-ghost { background:#fff; color:#334155; border:1.5px solid #e2e8f0; }
+
+  .card { background:#fff; border:1.5px solid #e2e8f0; border-radius:18px; padding:20px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
+  .card-head { font-weight:800; font-size:16px; color:#0f172a; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .card-head i { width:18px; height:18px; color:var(--red); }
+  .field { margin-bottom:14px; }
+  .field label { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#334155; margin-bottom:6px; }
+  .field label i { width:14px; height:14px; color:var(--red); }
+  .field input, .field textarea, .field select { width:100%; padding:12px 14px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:15px; font-family:inherit; color:#0f172a; background:#fff; outline:none; transition:border-color 0.2s; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color:var(--red); }
+  .field textarea { min-height:80px; resize:vertical; }
+  .two { display:flex; gap:10px; }
+  .two > div { flex:1; }
+  .upload-zone { display:flex; align-items:center; justify-content:center; gap:8px; padding:18px; background:var(--red-light); border:1.5px dashed #fca5a5; border-radius:14px; cursor:pointer; font-weight:700; font-size:14px; color:var(--red); }
+  .upload-zone i { width:20px; height:20px; }
+  .img-preview { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .img-preview .ip { position:relative; width:72px; height:72px; border-radius:10px; overflow:hidden; border:1.5px solid #e2e8f0; }
+  .img-preview .ip img { width:100%; height:100%; object-fit:cover; }
+  .img-preview .ip .rm { position:absolute; top:2px; right:2px; width:20px; height:20px; background:var(--red); color:#fff; border:none; border-radius:50%; cursor:pointer; font-size:12px; line-height:18px; text-align:center; padding:0; }
+  .img-preview .ip.loading { display:flex; align-items:center; justify-content:center; background:#f1f5f9; }
+  .img-preview .ip.loading div { width:18px; height:18px; border:3px solid var(--red); border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite; }
+  .pay-box { background:var(--red-light); border:1.5px solid #fecaca; border-radius:14px; padding:14px; text-align:center; margin-top:14px; }
+  .pay-box .note { font-size:12px; color:var(--red); font-weight:600; margin-bottom:8px; }
+  .amounts { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
+  .amount-btn { padding:12px; border:1.5px solid #e2e8f0; border-radius:12px; background:#fff; font-weight:800; font-size:15px; color:#0f172a; cursor:pointer; transition:all 0.15s; }
+    .amount-btn.active { border-color:var(--red); background:var(--red-light); color:var(--red); }
+  #customAmount { border:2.5px solid var(--red) !important; border-radius:16px !important; padding:14px 16px !important; font-size:18px !important; font-weight:800 !important; color:var(--red) !important; }
+
+
+  /* === CONTRIBUTION — white box, red lucide icons, thick bullets === */
+  .contrib-card { background:#fff; border:1.5px solid #e2e8f0; border-radius:18px; padding:20px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
+  .contrib-head { display:flex; align-items:center; gap:8px; font-weight:900; font-size:16px; color:#0f172a; margin-bottom:12px; }
+  .contrib-head i { width:22px; height:22px; color:var(--red); }
+  .contrib-bullets { list-style:none; margin-bottom:16px; }
+  .contrib-bullets li { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:#334155; padding:6px 0; border-bottom:2px solid #f1f5f9; }
+  .contrib-bullets li:last-child { border-bottom:none; }
+  .contrib-bullets li i { width:16px; height:16px; color:var(--red); flex-shrink:0; }
+
+  #toastBox { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:999999; display:flex; flex-direction:column; gap:10px; align-items:center; pointer-events:none; }
+  .toast { background:#fff; border-radius:16px; box-shadow:0 12px 36px rgba(0,0,0,0.25); padding:14px 18px; display:flex; align-items:center; gap:10px; min-width:260px; max-width:90vw; animation:pop 0.3s; }
+  .toast i { width:22px; height:22px; flex-shrink:0; }
+  .toast.success i { color:#22c55e; }
+  .toast.error i { color:var(--red); }
+  .toast.info i { color:var(--red); }
+  .toast .tt { font-weight:800; font-size:14px; color:#0f172a; }
+  .toast .tm { font-size:13px; color:#64748b; }
+  @keyframes pop { from{opacity:0;transform:scale(0.85);} to{opacity:1;transform:scale(1);} }
+  @keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+
+  #adminPanel { display:none; position:fixed; inset:0; z-index:9999; background:#fff; flex-direction:column; }
+  #adminPanel .ah { position:sticky; top:0; background:linear-gradient(135deg,#0f172a,var(--red)); padding:14px 16px; display:flex; align-items:center; gap:12px; color:#fff; z-index:10; box-shadow:0 4px 16px rgba(0,0,0,0.2); }
+  #adminPanel .ah img { width:36px; height:36px; border-radius:10px; }
+  #adminPanel .ah .t { font-weight:900; font-size:17px; }
+  #adminPanel .ah .s { font-size:11px; opacity:0.85; }
+  #adminPanel .ab { background:none; border:none; border-radius:50%; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#fff; }
+  #adminPanel .ab i { width:20px; height:20px; }
+  #adminPanel .body { flex:1; overflow-y:auto; padding:16px; }
+  .stat-row { display:flex; gap:10px; margin-bottom:16px; }
+  .stat-box { flex:1; border-radius:14px; padding:12px; border:1.5px solid #e2e8f0; }
+  .stat-box .v { font-weight:900; font-size:20px; color:#0f172a; }
+  .stat-box .l { font-size:11px; color:#64748b; font-weight:700; }
+  .pay-row { background:#fff; border:1.5px solid #e2e8f0; border-radius:14px; padding:14px; margin-bottom:10px; }
+  .pay-row .top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .pay-row .ic { width:42px; height:42px; border-radius:12px; background:var(--red-light); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .pay-row .ic i { width:22px; height:22px; color:var(--red); }
+  .pay-row .nm { font-weight:800; font-size:15px; color:#0f172a; }
+  .pay-row .cm { font-size:12px; color:#64748b; }
+  .pay-row .line { display:flex; align-items:center; gap:8px; font-size:13px; color:#334155; margin-top:6px; }
+  .pay-row .line i { width:15px; height:15px; color:var(--red); flex-shrink:0; }
+  .pay-row .tag { display:inline-flex; align-items:center; gap:4px; background:var(--red-light); color:var(--red); font-size:11px; font-weight:800; padding:3px 8px; border-radius:8px; margin-left:auto; }
+  .tabs { display:flex; gap:4px; background:#f1f5f9; border-radius:12px; padding:4px; margin-bottom:16px; }
+  .tab { flex:1; padding:10px; border:none; border-radius:10px; background:transparent; font-weight:800; font-size:13px; color:#64748b; cursor:pointer; }
+  .tab.active { background:var(--red); color:#fff; }
+  .empty { text-align:center; color:#94a3b8; padding:40px 20px; font-size:14px; }
+  .empty i { width:48px; height:48px; color:#cbd5e1; display:block; margin:0 auto 12px; }
+
+  #pwModal { display:none; position:fixed; inset:0; z-index:999999; background:rgba(0,0,0,0.8); align-items:center; justify-content:center; padding:20px; }
+  #pwModal .box { background:#fff; border-radius:24px; padding:28px 24px; width:100%; max-width:320px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+  #pwModal .logo { width:56px; height:56px; border-radius:14px; margin:0 auto 12px; display:block; }
+  #pwModal h3 { font-weight:900; font-size:18px; color:#0f172a; margin-bottom:4px; }
+  #pwModal p { font-size:13px; color:#64748b; margin-bottom:18px; }
+  #pwModal input { width:100%; padding:12px 16px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:15px; text-align:center; letter-spacing:2px; outline:none; margin-bottom:10px; box-sizing:border-box; }
+  #pwModal input:focus { border-color:var(--red); }
+  #pwModal .err { color:var(--red); font-size:12px; margin-bottom:8px; display:none; }
+  #pwModal .btns { display:flex; gap:10px; }
+  #pwModal .btns button { flex:1; padding:12px; border:none; border-radius:12px; font-weight:800; cursor:pointer; font-size:14px; }
+  #pwModal .cancel { background:#f1f5f9; color:#64748b; }
+  #pwModal .go { background:var(--red); color:#fff; }
+
+  #successOv { display:none; position:fixed; inset:0; z-index:999999; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; padding:20px; }
+  #successOv .box { background:#fff; border-radius:24px; padding:32px 24px; width:100%; max-width:340px; text-align:center; }
+  #successOv .ic { width:72px; height:72px; background:#f0fdf4; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+  #successOv .ic i { width:40px; height:40px; color:#22c55e; }
+  #successOv h3 { font-weight:900; font-size:22px; color:#0f172a; margin-bottom:8px; }
+  #successOv p { font-size:14px; color:#64748b; line-height:1.6; margin-bottom:20px; }
+
+  .footer { background:#0f172a; color:#94a3b8; padding:24px 20px 40px; text-align:center; font-size:13px; }
+  .footer a { color:#fecaca; }
+  .footer .row { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:10px; }
+  .footer img { width:28px; height:28px; border-radius:7px; }
+  .loader { display:inline-block; width:18px; height:18px; border:3px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite; }
+</style>
+</head>
+<body>
+
+<div id="toastBox"></div>
+
+<div class="header">
+  <div class="brand" id="brandTitle">
+    
+    <i data-lucide="crown" class="brand-crown"></i>
+    <span class="brand-name">BeelzeAds</span>
+  </div>
+  <div class="header-right">
+    <div class="pf-tag"><i data-lucide="shield-check" style="width:16px;height:16px;"></i> PayFast Secured</div>
+    <button class="admin-btn" id="adminOpenBtn" title="Admin Access"><i data-lucide="lock"></i></button>
+  </div>
+</div>
+
+<div class="hero">
+  <img src="https://i.postimg.cc/mD0dbHM0/1000287857.png" class="hero-logo" alt="BeelzeAds Logo">
+  <h1>Beelze<span>Ads</span></h1>
+  <p>Run powerful banner ads on BeelzeChat and reach millions of South African users. Pay securely via PayFast — your ad goes live instantly.</p>
+  <ul class="hero-bullets">
+    <li><i data-lucide="users-round"></i> 6.5M+ Users</li>
+    <li><i data-lucide="eye"></i> 5M+ Reach</li>
+    <li><i data-lucide="trending-up"></i> Real Results</li>
+  </ul>
+</div>
+
+<div class="section">
+  <div class="section-title"><i data-lucide="megaphone"></i> Advertise on BeelzeChat</div>
+  <div class="section-sub">Choose a plan, fill in your details, and pay securely via PayFast.</div>
+
+  <!-- Plan toggle -->
+  <div class="plan-toggle">
+        <button class="pt-btn" data-plan="enterprise"><i data-lucide="building-2"></i> Enterprise</button>
+    <button class="pt-btn active" data-plan="small"><i data-lucide="store"></i> Small Business</button>
+  </div>
+
+  <!-- Plan cards -->
+  <div class="plan-cards">
+    <div class="plan-card" id="planEnterprise">
+      <div class="plan-head"><i data-lucide="crown"></i><div class="plan-name">Enterprise</div></div>
+      <div class="plan-price">R690,000</div>
+      <div class="plan-per">for 6 Months</div>
+      <ul class="plan-bullets">
+        <li><i data-lucide="users-round"></i> Reach 3,500,000 – 5,607,733 active users</li>
+        <li><i data-lucide="calendar-days"></i> Duration: 6 Months</li>
+        <li><i data-lucide="megaphone"></i> Banner ads across the BeelzeChat feed</li>
+      </ul>
+      <button class="btn btn-red plan-pay" data-plan="enterprise" data-amount="690000" data-name="BeelzeAds Ad - Enterprise 6 Months">
+        <i data-lucide="credit-card"></i> Pay R690,000
+      </button>
+    </div>
+
+        <div class="plan-card active" id="planSmall">
+      <div class="plan-head"><i data-lucide="crown"></i><div class="plan-name">Small Business</div></div>
+      <div class="plan-price">R95,000</div>
+      <div class="plan-per">for 3 Months</div>
+      <ul class="plan-bullets">
+        <li><i data-lucide="users-round"></i> Reach 565,000 – 1,065,000 active users</li>
+        <li><i data-lucide="calendar-days"></i> Duration: 3 Months</li>
+        <li><i data-lucide="megaphone"></i> Banner ads across the BeelzeChat feed</li>
+      </ul>
+      <button class="btn btn-red plan-pay" data-plan="small" data-amount="95000" data-name="BeelzeAds Ad - Small Business 3 Months">
+        <i data-lucide="credit-card"></i> Pay R95,000
+      </button>
+    </div>
+  </div>
+
+  <!-- Advertiser Details — hidden until a plan Pay button is pressed -->
+  <div class="card" id="adDetailsCard" style="display:none;">
+    <div class="card-head"><i data-lucide="file-text"></i> Advertiser Details</div>
+    <form id="adForm">
+      <div class="field">
+        <label><i data-lucide="building"></i> Business / Company Name *</label>
+        <input type="text" id="adBizName" placeholder="e.g. Hyundai Motor SA" required>
+      </div>
+      <div class="field">
+        <label><i data-lucide="mail"></i> Email Address *</label>
+        <input type="email" id="adEmail" placeholder="contact@business.co.za" required>
+      </div>
+      <div class="two">
+        <div class="field">
+          <label><i data-lucide="phone"></i> Call Number</label>
+          <input type="text" id="adCall" placeholder="+27...">
+        </div>
+        <div class="field">
+          <label><i data-lucide="message-circle"></i> WhatsApp</label>
+          <input type="text" id="adWhatsapp" placeholder="+27...">
+        </div>
+      </div>
+      <div class="field">
+        <label><i data-lucide="globe"></i> Website / Domain</label>
+        <input type="text" id="adWebsite" placeholder="https://yourbusiness.co.za">
+      </div>
+      <div class="field">
+        <label><i data-lucide="file-text"></i> Ad Text</label>
+        <textarea id="adText" placeholder="Short promo text for your banner..."></textarea>
+      </div>
+      <div class="field">
+        <label><i data-lucide="image"></i> Ad Pictures (up to 8)</label>
+        <input type="file" id="adImages" accept="image/*" multiple style="display:none;">
+        <label for="adImages" class="upload-zone"><i data-lucide="upload-cloud"></i> Upload Pictures</label>
+        <div class="img-preview" id="adImagesPreview"></div>
+      </div>
+      <div class="pay-box">
+        <div class="note" id="adPayNote">You must pay <b>R690,000</b> before your ad goes live.</div>
+        <button type="submit" class="btn btn-red" id="adPayBtn">
+          <i data-lucide="credit-card"></i> <span id="adPayBtnText">Pay R690,000 & Publish</span>
+        </button>
+        <a href__="mailto:ads@beelzechat.co.za" style="display:block;font-size:11px;color:#94a3b8;margin-top:8px;text-decoration:underline;">Payment problem? ads@beelzechat.co.za</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="section" style="background:#fef9f9;">
+  <div class="section-title"><i data-lucide="heart"></i> Support BeelzeAds</div>
+  <div class="section-sub">Donate any amount from R10 to help the platform grow and reach more businesses.</div>
+
+  <div class="contrib-card">
+    <div class="contrib-head"><i data-lucide="crown"></i> Make a Contribution</div>
+    <ul class="contrib-bullets">
+      <li><i data-lucide="heart"></i> Help BeelzeAds reach more businesses</li>
+      <li><i data-lucide="zap"></i> Keep the platform free for small sellers</li>
+      <li><i data-lucide="shield-check"></i> 100% secure via PayFast</li>
+    </ul>
+    <form id="donateForm">
+      <div class="amounts" id="amountGrid">
+        <button type="button" class="amount-btn" data-amt="10">R10</button>
+        <button type="button" class="amount-btn" data-amt="50">R50</button>
+        <button type="button" class="amount-btn" data-amt="100">R100</button>
+        <button type="button" class="amount-btn" data-amt="250">R250</button>
+        <button type="button" class="amount-btn" data-amt="500">R500</button>
+        <button type="button" class="amount-btn active" data-amt="custom">Custom</button>
+      </div>
+      <div class="field" id="customField" style="display:block;">
+        <label><i data-lucide="banknote"></i> Custom Amount (R)</label>
+        <input type="number" id="customAmount" min="10" placeholder="e.g. 75">
+      </div>
+      <div class="field">
+        <label><i data-lucide="user"></i> Your Name</label>
+        <input type="text" id="donateName" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label><i data-lucide="mail"></i> Email Address *</label>
+        <input type="email" id="donateEmail" placeholder="you@email.com" required>
+      </div>
+      <button type="submit" class="btn btn-white" id="donateBtn">
+        <i data-lucide="heart"></i> Contribute Now
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="row">
+    <img src="https://i.postimg.cc/mD0dbHM0/1000287857.png" alt="BeelzeAds">
+    <strong style="color:#fff;">BeelzeAds</strong>
+  </div>
+  <div>© 2026 BeelzeAds. Part of the BeelzeChat family.</div>
+  <div style="margin-top:8px;">
+    <a href__="mailto:ads@beelzechat.co.za">ads@beelzechat.co.za</a> ·
+    <a href__="mailto:support@beelzechat.co.za">support@beelzechat.co.za</a>
+  </div>
+  <div style="margin-top:10px;font-size:11px;opacity:0.7;">Payments processed securely by PayFast. All data stored in Firestore.</div>
+</div>
+
+<div id="pwModal">
+  <div class="box">
+    <img src="https://i.postimg.cc/mD0dbHM0/1000287857.png" class="logo" alt="BeelzeAds">
+    <h3>Admin Access</h3>
+    <p>BeelzeAds Payment Dashboard</p>
+    <input type="password" id="pwInput" placeholder="Enter admin password" autocomplete="off">
+    <div class="err" id="pwError">Wrong password. Try again.</div>
+    <div class="btns">
+      <button class="cancel" id="pwCancel">Cancel</button>
+      <button class="go" id="pwGo">Enter</button>
+    </div>
+  </div>
+</div>
+
+<div id="successOv">
+  <div class="box">
+    <div class="ic"><i data-lucide="check-circle-2"></i></div>
+    <h3 id="successTitle">Redirecting to PayFast...</h3>
+    <p id="successMsg">You are being redirected to complete your secure payment.</p>
+    <button class="btn btn-red" onclick="document.getElementById('successOv').style.display='none';">
+      <i data-lucide="check"></i> OK
+    </button>
+  </div>
+</div>
+
+<div id="adminPanel">
+  <div class="ah">
+    <button class="ab" id="adminClose"><i data-lucide="x"></i></button>
+    <img src="https://i.postimg.cc/mD0dbHM0/1000287857.png" alt="BeelzeAds">
+    <div style="flex:1;">
+      <div class="t">BeelzeAds Admin</div>
+      <div class="s">Payment Dashboard</div>
+    </div>
+    <button class="ab" id="adminRefresh" title="Refresh"><i data-lucide="refresh-cw"></i></button>
+  </div>
+  <div class="body">
+    <div class="stat-row" id="adminStats"></div>
+    <div class="tabs">
+      <button class="tab active" data-tab="ads" id="tabAds"><i data-lucide="megaphone" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Ad Payments</button>
+      <button class="tab" data-tab="donations" id="tabDon"><i data-lucide="heart" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Donations</button>
+    </div>
+    <div id="adminList"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: 'AIzaSyBfimOu2e0xAMoRyM-rwNMgAk9G_Hgt558',
+  authDomain: 'blackrituals.firebaseapp.com',
+  databaseURL: 'https://blackrituals-default-rtdb.firebaseio.com',
+  projectId: 'blackrituals',
+  storageBucket: 'blackrituals.firebasestorage.app',
+  messagingSenderId: '511685923038',
+  appId: '1:511685923038:web:4db052df64ebb1e194724f',
+  measurementId: 'G-GTD0MXBCEK'
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const R2_WORKER_URL = 'https://beelzechat-storage-worker.white-mouse-5467.workers.dev';
+const R2_PUBLIC_BUCKET_URL = 'https://pub-730c026431a641358f01194bd545a5f4.r2.dev';
+const PAYFAST_WORKER_URL = 'https://beelzechat.white-mouse-5467.workers.dev';
+
+const _ADMIN_PW_HASH = 'b7597bb5e2797e0276019c97acbf27bbd837cf8b33f95932b6cc742e0ba8eadb';
+
+function showToast(type, title, msg) {
+  const box = document.getElementById('toastBox');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  const ic = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-circle' : 'info';
+  t.innerHTML = '<i data-lucide="' + ic + '"></i><div><div class="tt">' + title + '</div><div class="tm">' + (msg||'') + '</div></div>';
+  box.appendChild(t);
+  lucide.createIcons();
+  setTimeout(() => { t.style.transition='all .3s'; t.style.opacity='0'; t.style.transform='translateY(-10px)'; setTimeout(()=>t.remove(),300); }, 2500);
+}
+
+async function compressImage(file) {
+  if (!file.type.startsWith('image/')) return file;
+  try {
+    const img = await createImageBitmap(file);
+    const maxW = 1600;
+    let scale = Math.min(1, maxW / img.width);
+    let w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+    let q = 0.85, blob = await new Promise(r => canvas.toBlob(r,'image/jpeg',q));
+    while (blob.size > 500*1024 && q > 0.4) { q -= 0.1; blob = await new Promise(r => canvas.toBlob(r,'image/jpeg',q)); }
+    return new File([blob], file.name.replace(/\.[^.]+$/,'.jpg'), { type:'image/jpeg' });
+  } catch(e) { return file; }
+}
+
+async function uploadToR2(file) {
+  try {
+    const compressed = await compressImage(file);
+    const fd = new FormData();
+    fd.append('file', compressed);
+    const res = await fetch(R2_WORKER_URL, { method:'POST', body:fd });
+    if (!res.ok) { showToast('error','Upload Failed','Server error '+res.status); return null; }
+    const data = await res.json();
+    if (data.key) return R2_PUBLIC_BUCKET_URL.replace(/\/+$/,'') + '/' + data.key;
+    showToast('error','Upload Failed','No file key returned'); return null;
+  } catch(e) { showToast('error','Upload Failed',e.message); return null; }
+}
+
+let _adImages = [];
+const adImagesInput = document.getElementById('adImages');
+adImagesInput.addEventListener('change', async e => {
+  const files = Array.from(e.target.files);
+  if (_adImages.filter(i=>i!=='__loading__').length + files.length > 8) { showToast('error','Max 8','Up to 8 pictures allowed'); e.target.value=''; return; }
+  for (const f of files) {
+    const idx = _adImages.length;
+    _adImages.push('__loading__');
+    renderAdImages();
+    const url = await uploadToR2(f);
+    if (url) _adImages[idx] = url; else _adImages.splice(idx,1);
+    renderAdImages();
+  }
+  e.target.value = '';
+});
+
+function renderAdImages() {
+  const p = document.getElementById('adImagesPreview');
+  p.innerHTML = '';
+  _adImages.forEach((img,i) => {
+    const w = document.createElement('div');
+    w.className = 'ip' + (img==='__loading__' ? ' loading' : '');
+    if (img === '__loading__') { w.innerHTML = '<div></div>'; }
+    else {
+      w.innerHTML = '<img src="'+img+'"><button type="button" class="rm" data-i="'+i+'">×</button>';
+      w.querySelector('.rm').addEventListener('click', () => { _adImages.splice(i,1); renderAdImages(); });
+    }
+    p.appendChild(w);
+  });
+}
+
+/* === PLAN SELECTION === */
+let _adAmount = 95000;
+let _adPlan = 'small';
+let _adItemName = 'BeelzeAds Ad - Small Business 3 Months';
+
+
+function selectPlan(plan) {
+  _adPlan = plan;
+  document.querySelectorAll('.pt-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === plan));
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+  document.getElementById(plan === 'enterprise' ? 'planEnterprise' : 'planSmall').classList.add('active');
+}
+
+document.querySelectorAll('.pt-btn').forEach(b => {
+  b.addEventListener('click', () => selectPlan(b.dataset.plan));
+});
+
+document.querySelectorAll('.plan-pay').forEach(b => {
+  b.addEventListener('click', () => {
+    const plan = b.dataset.plan;
+    selectPlan(plan);
+    _adAmount = parseInt(b.dataset.amount, 10);
+    _adItemName = b.dataset.name;
+    const fmt = 'R' + _adAmount.toLocaleString();
+    document.getElementById('adPayNote').innerHTML = 'You must pay <b>'+fmt+'</b> before your ad goes live.';
+    document.getElementById('adPayBtnText').textContent = 'Pay ' + fmt + ' & Publish';
+    const card = document.getElementById('adDetailsCard');
+    card.style.display = 'block';
+    card.scrollIntoView({ behavior:'smooth', block:'start' });
+    showToast('info', plan === 'enterprise' ? 'Enterprise Selected' : 'Small Business Selected', 'Fill in your details below to continue');
+  });
+});
+
+document.getElementById('adForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (_adImages.some(i => i === '__loading__')) { showToast('error','Wait','Pictures still uploading'); return; }
+  const bizName = document.getElementById('adBizName').value.trim();
+  const email = document.getElementById('adEmail').value.trim();
+  if (!bizName || !email) { showToast('error','Required','Business name and email are required'); return; }
+
+  const btn = document.getElementById('adPayBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Redirecting to PayFast...';
+  lucide.createIcons();
+
+  try {
+    const orderRef = 'BZAD-LP-' + Date.now();
+    await db.collection('adPayments').add({
+      orderRef,
+      bizName,
+      email,
+      call: document.getElementById('adCall').value.trim(),
+      whatsapp: document.getElementById('adWhatsapp').value.trim(),
+      website: document.getElementById('adWebsite').value.trim(),
+      adText: document.getElementById('adText').value.trim(),
+      images: [..._adImages],
+      plan: _adPlan,
+      amount: _adAmount,
+      status: 'pending',
+      createdAt: Date.now()
+    });
+    localStorage.setItem('bzads_pendingAd', JSON.stringify({ orderRef, email, bizName }));
+
+    const res = await fetch(PAYFAST_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        amount: _adAmount.toFixed(2),
+        itemName: _adItemName,
+        itemDesc: 'Banner advertisement on BeelzeChat (' + (_adPlan === 'enterprise' ? '6 months' : '3 months') + ')',
+        nameFirst: bizName.split(' ')[0],
+        email: email,
+        orderRef: orderRef
+      })
+    });
+    const data = await res.json();
+    if (!data.url || !data.fields) { showToast('error','Payment Error','Could not start payment — email ads@beelzechat.co.za'); resetAdBtn(); return; }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = data.url;
+    Object.entries(data.fields).forEach(([k,v]) => { const i = document.createElement('input'); i.type='hidden'; i.name=k; i.value=v; form.appendChild(i); });
+    document.body.appendChild(form);
+    form.submit();
+  } catch(err) {
+    showToast('error','Payment Failed', err.message || 'Check your connection');
+    resetAdBtn();
+  }
+});
+
+function resetAdBtn() {
+  const btn = document.getElementById('adPayBtn');
+  btn.disabled = false;
+  const fmt = 'R' + _adAmount.toLocaleString();
+  btn.innerHTML = '<i data-lucide="credit-card"></i> Pay ' + fmt + ' & Publish';
+  lucide.createIcons();
+}
+
+let _donateAmount = 0;
+let _donateCustom = true;
+
+document.querySelectorAll('.amount-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.amount-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    if (b.dataset.amt === 'custom') {
+      _donateCustom = true;
+      document.getElementById('customField').style.display = 'block';
+    } else {
+      _donateCustom = false;
+      document.getElementById('customField').style.display = 'none';
+      _donateAmount = parseInt(b.dataset.amt, 10);
+    }
+  });
+});
+
+document.getElementById('customAmount').addEventListener('input', function() {
+  _donateAmount = parseInt(this.value, 10) || 0;
+});
+
+document.getElementById('donateForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (_donateCustom && _donateAmount < 10) { showToast('error','Too small','Minimum donation is R10'); return; }
+  const email = document.getElementById('donateEmail').value.trim();
+  const name = document.getElementById('donateName').value.trim();
+  if (!email) { showToast('error','Required','Email is required'); return; }
+  if (_donateAmount < 10) { showToast('error','Too small','Minimum donation is R10'); return; }
+
+  const btn = document.getElementById('donateBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Redirecting...';
+
+  try {
+    const orderRef = 'BZDON-LP-' + Date.now();
+    await db.collection('donations').add({
+      orderRef,
+      name: name || 'Anonymous',
+      email,
+      amount: _donateAmount,
+      status: 'pending',
+      createdAt: Date.now()
+    });
+    localStorage.setItem('bzads_pendingDon', JSON.stringify({ orderRef, email, name, amount: _donateAmount }));
+
+    const res = await fetch(PAYFAST_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        amount: _donateAmount.toFixed(2),
+        itemName: 'BeelzeAds Contribution',
+        itemDesc: 'Donation to support BeelzeAds platform',
+        nameFirst: (name || 'Donor').split(' ')[0],
+        email: email,
+        orderRef: orderRef
+      })
+    });
+    const data = await res.json();
+    if (!data.url || !data.fields) { showToast('error','Payment Error','Could not start payment'); resetDonateBtn(); return; }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = data.url;
+    Object.entries(data.fields).forEach(([k,v]) => { const i = document.createElement('input'); i.type='hidden'; i.name=k; i.value=v; form.appendChild(i); });
+    document.body.appendChild(form);
+    form.submit();
+  } catch(err) {
+    showToast('error','Payment Failed', err.message || 'Check your connection');
+    resetDonateBtn();
+  }
+});
+
+function resetDonateBtn() {
+  const btn = document.getElementById('donateBtn');
+  btn.disabled = false;
+  btn.innerHTML = '<i data-lucide="heart"></i> Contribute Now';
+  lucide.createIcons();
+}
+
+/* === ADMIN ACCESS — visible lock button + triple-tap on brand === */
+function openPwModal() {
+  document.getElementById('pwInput').value = '';
+  document.getElementById('pwError').style.display = 'none';
+  document.getElementById('pwModal').style.display = 'flex';
+  lucide.createIcons();
+  setTimeout(() => document.getElementById('pwInput').focus(), 100);
+}
+document.getElementById('adminOpenBtn').addEventListener('click', openPwModal);
+
+let _titleClicks = 0, _titleTimer = null;
+document.getElementById('brandTitle').addEventListener('click', () => {
+  _titleClicks++;
+  clearTimeout(_titleTimer);
+  _titleTimer = setTimeout(() => { _titleClicks = 0; }, 600);
+  if (_titleClicks >= 3) { _titleClicks = 0; openPwModal(); }
+});
+
+document.getElementById('pwGo').addEventListener('click', async () => {
+  const pw = document.getElementById('pwInput').value;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if (hash === _ADMIN_PW_HASH) {
+    document.getElementById('pwModal').style.display = 'none';
+    openAdmin();
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+  }
+});
+document.getElementById('pwInput').addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('pwGo').click(); });
+document.getElementById('pwCancel').addEventListener('click', () => document.getElementById('pwModal').style.display = 'none');
+
+let _adminTab = 'ads';
+document.getElementById('tabAds').addEventListener('click', () => { _adminTab='ads'; updateTabs(); loadAdminList(); });
+document.getElementById('tabDon').addEventListener('click', () => { _adminTab='donations'; updateTabs(); loadAdminList(); });
+function updateTabs() {
+  document.getElementById('tabAds').classList.toggle('active', _adminTab==='ads');
+  document.getElementById('tabDon').classList.toggle('active', _adminTab==='donations');
+}
+document.getElementById('adminClose').addEventListener('click', () => document.getElementById('adminPanel').style.display = 'none');
+document.getElementById('adminRefresh').addEventListener('click', () => loadAdminList());
+
+async function openAdmin() {
+  document.getElementById('adminPanel').style.display = 'flex';
+  lucide.createIcons();
+  await loadAdminList();
+}
+
+async function loadAdminList() {
+  const list = document.getElementById('adminList');
+  const stats = document.getElementById('adminStats');
+  list.innerHTML = '<div class="empty"><div class="loader"></div><div style="margin-top:10px;">Loading...</div></div>';
+  try {
+    if (_adminTab === 'ads') {
+      const snap = await db.collection('adPayments').orderBy('createdAt','desc').limit(200).get();
+      const items = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      const total = items.reduce((s,x)=>s+(x.amount||0),0);
+      stats.innerHTML =
+        '<div class="stat-box" style="background:#fef2f2;border-color:#fecaca;"><div class="v">'+items.length+'</div><div class="l">Ad Payments</div></div>' +
+        '<div class="stat-box" style="background:#fffbeb;border-color:#fde68a;"><div class="v">R'+total.toLocaleString()+'</div><div class="l">Total Value</div></div>';
+      if (!items.length) { list.innerHTML = '<div class="empty"><i data-lucide="megaphone"></i>No ad payments yet</div>'; lucide.createIcons(); return; }
+      list.innerHTML = items.map(x => renderAdRow(x)).join('');
+    } else {
+      const snap = await db.collection('donations').orderBy('createdAt','desc').limit(200).get();
+      const items = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      const total = items.reduce((s,x)=>s+(x.amount||0),0);
+      stats.innerHTML =
+        '<div class="stat-box" style="background:#fef2f2;border-color:#fecaca;"><div class="v">'+items.length+'</div><div class="l">Donations</div></div>' +
+        '<div class="stat-box" style="background:#fffbeb;border-color:#fde68a;"><div class="v">R'+total.toLocaleString()+'</div><div class="l">Total Raised</div></div>';
+      if (!items.length) { list.innerHTML = '<div class="empty"><i data-lucide="heart"></i>No donations yet</div>'; lucide.createIcons(); return; }
+      list.innerHTML = items.map(x => renderDonRow(x)).join('');
+    }
+    lucide.createIcons();
+  } catch(e) {
+    list.innerHTML = '<div class="empty" style="color:var(--red);"><i data-lucide="alert-circle"></i>Could not load: ' + e.message + '</div>';
+    lucide.createIcons();
+  }
+}
+
+function fmtDate(ts) { return ts ? new Date(ts).toLocaleString('en-ZA') : ''; }
+function statusTag(s) {
+  const map = { pending:'#f59e0b', paid:'#22c55e', cancelled:'#94a3b8' };
+  const c = map[s] || '#94a3b8';
+  return '<span class="tag" style="background:'+(s==='paid'?'#f0fdf4':s==='pending'?'#fffbeb':'#f8fafc')+';color:'+c+';border:1px solid '+(s==='paid'?'#bbf7d0':s==='pending'?'#fde68a':'#e2e8f0')+';">'+(s||'pending').toUpperCase()+'</span>';
+}
+
+function renderAdRow(x) {
+  const img = (x.images && x.images[0]) ? '<img src="'+x.images[0]+'" style="width:42px;height:42px;border-radius:10px;object-fit:cover;">' : '';
+  return '<div class="pay-row">' +
+    '<div class="top">' +
+      '<div class="ic">' + (img || '<i data-lucide="megaphone"></i>') + '</div>' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div class="nm">'+(x.bizName||'Unknown')+'</div>' +
+        '<div class="cm">R'+(x.amount||0).toLocaleString()+' · '+(x.plan||'enterprise')+' · '+fmtDate(x.createdAt)+'</div>' +
+      '</div>' +
+      statusTag(x.status) +
+    '</div>' +
+    '<div class="line"><i data-lucide="mail"></i> '+(x.email||'—')+'</div>' +
+    (x.call?'<div class="line"><i data-lucide="phone"></i> '+x.call+'</div>':'') +
+    (x.whatsapp?'<div class="line"><i data-lucide="message-circle"></i> '+x.whatsapp+'</div>':'') +
+    (x.website?'<div class="line"><i data-lucide="globe"></i> '+x.website+'</div>':'') +
+    (x.adText?'<div class="line"><i data-lucide="file-text"></i> '+x.adText+'</div>':'') +
+    (x.images && x.images.length?'<div class="line"><i data-lucide="image"></i> '+x.images.length+' picture(s)</div>':'') +
+  '</div>';
+}
+
+function renderDonRow(x) {
+  return '<div class="pay-row">' +
+    '<div class="top">' +
+      '<div class="ic"><i data-lucide="heart"></i></div>' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div class="nm">'+(x.name||'Anonymous')+'</div>' +
+        '<div class="cm">R'+(x.amount||0).toLocaleString()+' · '+fmtDate(x.createdAt)+'</div>' +
+      '</div>' +
+      statusTag(x.status) +
+    '</div>' +
+    '<div class="line"><i data-lucide="mail"></i> '+(x.email||'—')+'</div>' +
+  '</div>';
+}
+
+(function handleReturn() {
+  const params = new URLSearchParams(window.location.search);
+  if (!params.has('pf')) return;
+  const status = params.get('pf');
+  history.replaceState({}, document.title, window.location.pathname);
+  if (status === 'return') {
+    (async () => {
+      const pendAd = JSON.parse(localStorage.getItem('bzads_pendingAd') || 'null');
+      if (pendAd) {
+        try {
+          const snap = await db.collection('adPayments').where('orderRef','==',pendAd.orderRef).get();
+          snap.forEach(d => d.ref.update({ status:'paid', paidAt:Date.now() }));
+        } catch(e){}
+        localStorage.removeItem('bzads_pendingAd');
+      }
+      const pendDon = JSON.parse(localStorage.getItem('bzads_pendingDon') || 'null');
+      if (pendDon) {
+        try {
+          const snap = await db.collection('donations').where('orderRef','==',pendDon.orderRef).get();
+          snap.forEach(d => d.ref.update({ status:'paid', paidAt:Date.now() }));
+        } catch(e){}
+        localStorage.removeItem('bzads_pendingDon');
+      }
+      document.getElementById('successTitle').textContent = 'Payment Successful!';
+      document.getElementById('successMsg').textContent = 'Thank you! Your payment has been received and recorded. Your ad will go live within 24 hours.';
+      document.getElementById('successOv').style.display = 'flex';
+      lucide.createIcons();
+    })();
+  } else if (status === 'cancel') {
+    showToast('info','Cancelled','Payment was cancelled. Try again anytime.');
+  }
+})();
+
+lucide.createIcons();
+</script>
+</body>
+</html>
